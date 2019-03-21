@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "bloccipedia-dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorAliases": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": null,
+    "database": "bloccipedia-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false,
+    "operatorAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
