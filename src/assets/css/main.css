@@ -1,0 +1,163 @@
+nav {
+  overflow: hidden;
+  padding: 10px 10px;
+  background: #1abc9c;
+}
+
+nav a {
+  float: left;
+  color: #585858;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+nav a.logo {
+  font-size: 25px;
+  color: #000099;
+  font-weight: bold;
+}
+
+nav a:hover {
+  background-color: #FF0099;
+  color: white;
+}
+
+nav a.nav-right {
+  float: right;
+}
+
+footer {
+  background-color: #1abc9c;
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+}
+
+.full-page {
+  width: 100%;
+  border-style: double;
+  border-width: medium;
+  border-color: #808080;
+}
+
+.duo-col {
+  float: left;
+  width: 50%;
+  padding: 20px;
+}
+
+.tri-col {
+  float: left;
+  width: 33.33%;
+  padding: 20px;
+}
+
+.tri-col.side {
+  width: 25%;
+}
+
+.tri-col.middle {
+  width: 50%;
+}
+
+.quad-col {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.tri-quart-col {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+header {
+  overflow: hidden;
+  padding: 20px 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-width: thick;
+  background: rgb(169,169,169);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.h-display {
+  font-family: 'Sedgwick Ave', cursive;
+  padding-left: 10px;
+}
+
+.p-display {
+  font-family: 'Playfair Display', serif;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.card-title {
+  font-size: 15px;
+  font-family: 'Sedgwick Ave', cursive;
+  background-color: rgb(220,220,220);
+  border-radius: 4px;
+  text-align: right;
+}
+
+.card-text {
+  border-style: solid;
+  font-family: 'Playfair Display', serif;
+  border-radius: 4px;
+  text-align: center;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=text], [type=email], [type=password] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.table-alt-color tr:nth-child(odd) {
+  background-color: #CCFFFF;
+}
+
+.container {
+  border-radius: 5px;
+  padding: 20px;
+  margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+  background-color: rgb(220,220,220);
+  border-style: groove;
+  border-color: rgb(169,169,169);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  nav a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  nav .nav-right {
+    float: none;
+  }
+  .duo-column, .tri-column.side, .tri-column.middle, .quad-col, .tri-quart-col {
+    width: 100%;
+  }
+}
