@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h2 class="h-display">Sign In</h2>
+
+      <form method="POST" action="/users/sign_in">
+        <div class="row">
+          <div class="quad-col">
+            <label for="email">Email:</label>
+          </div>
+          <div class="tri-quart-col">
+            <input type="email" name="email" placeholder="Enter Email">
+          </div>
+        </div>
+        <div class="row">
+          <div class="quad-col">
+            <label for="password">Password:</label>
+          </div>
+          <div class="tri-quart-col">
+            <input type="password" name="password" placeholder="Enter Password"/>
+          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Sign Up</button>
+        </div>
+      </form>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

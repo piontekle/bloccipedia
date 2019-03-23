@@ -1,4 +1,15 @@
 <nav>
   <a class="logo" href="/">Bloccipedia</a>
-  <a class="header-right" href="/users/sign_up">Sign Up</a>
+  <div class="nav-links" id="topNav">
+    <a href="/">Home</a>
+    <% if(currentUser) { %>
+      <a class="nav-right" href="/users/sign_out">Sign Out</a>
+    <% } else { %>
+      <a class="nav-right" href="/users/sign_up">Sign Up</a>
+      <a class="nav-right" href="/users/sign_in">Sign In</a>
+    <% } %>
+    <a href="javascript:void(0);" class="icon" onclick="hamburger()">
+      <i class="material-icons">view_headline</i>
+    </a>
+  </div>
 </nav>

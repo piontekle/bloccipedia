@@ -1,3 +1,4 @@
+/* -----NAVBAR----- */
 nav {
   overflow: hidden;
   padding: 10px 10px;
@@ -6,7 +7,6 @@ nav {
 
 nav a {
   float: left;
-  color: #585858;
   text-align: center;
   padding: 12px;
   text-decoration: none;
@@ -21,15 +21,35 @@ nav a.logo {
   font-weight: bold;
 }
 
-nav a:hover {
+.nav-links a {
+  float: left;
+  display: block;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
   background-color: #FF0099;
   color: white;
 }
 
-nav a.nav-right {
-  float: right;
+.nav-links .icon {
+  display: none;
 }
-
+/* -----HEADER----- */
+header {
+  overflow: hidden;
+  padding: 20px 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-width: thick;
+  background: rgb(169,169,169);
+  border-radius: 10px;
+  text-align: center;
+}
+/* -----FOOTER------ */
 footer {
   background-color: #1abc9c;
   text-align: center;
@@ -37,6 +57,77 @@ footer {
   font-size: 15px;
 }
 
+/* -----TEXT STYLING----- */
+.h-display {
+  font-family: 'Sedgwick Ave', cursive;
+  padding-left: 10px;
+}
+
+.p-display {
+  font-family: 'Playfair Display', serif;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.text-muted {
+  color: rgb(128,128,128);
+}
+
+.card-title {
+  font-size: 15px;
+  font-family: 'Sedgwick Ave', cursive;
+  background-color: rgb(220,220,220);
+  border-radius: 4px;
+  text-align: right;
+}
+
+.card-text {
+  border-style: solid;
+  font-family: 'Playfair Display', serif;
+  border-radius: 4px;
+  text-align: center;
+}
+/* -----FORMS, ALERTS, TABLES, ETC.----- */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=text], [type=email], [type=password] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.alert {
+  font-family: 'Saira Extra Condensed', sans-serif;
+}
+
+.alert.error .inner {
+  border: 1px solid rgb(238,211,215);
+  border-radius: 2px;
+  background-color: rgb(242,222,222);
+}
+
+.alert.notice {
+  border: 1px solid rgb(214,233,198);
+  border-radius: 2px;
+  background-color: rgb(223,240,216);
+}
+
+.close {
+  float: right;
+  margin: 3px 12px 0px 0px;
+  cursor: pointer;
+}
+
+.table-alt-color tr:nth-child(odd) {
+  background-color: #CCFFFF;
+}
+/* -----PAGE LAYOUT------ */
 .full-page {
   width: 100%;
   border-style: double;
@@ -75,62 +166,7 @@ footer {
   width: 75%;
   margin-top: 6px;
 }
-
-header {
-  overflow: hidden;
-  padding: 20px 10px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  border-width: thick;
-  background: rgb(169,169,169);
-  border-radius: 10px;
-  text-align: center;
-}
-
-.h-display {
-  font-family: 'Sedgwick Ave', cursive;
-  padding-left: 10px;
-}
-
-.p-display {
-  font-family: 'Playfair Display', serif;
-  padding-left: 10px;
-  font-size: 20px;
-}
-
-.card-title {
-  font-size: 15px;
-  font-family: 'Sedgwick Ave', cursive;
-  background-color: rgb(220,220,220);
-  border-radius: 4px;
-  text-align: right;
-}
-
-.card-text {
-  border-style: solid;
-  font-family: 'Playfair Display', serif;
-  border-radius: 4px;
-  text-align: center;
-}
-
-label {
-  padding: 12px 12px 12px 0;
-  display: inline-block;
-}
-
-input[type=text], [type=email], [type=password] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  resize: vertical;
-}
-
-.table-alt-color tr:nth-child(odd) {
-  background-color: #CCFFFF;
-}
-
+/* -----PAGE FORMAT----- */
 .container {
   border-radius: 5px;
   padding: 20px;
@@ -159,5 +195,27 @@ input[type=text], [type=email], [type=password] {
   }
   .duo-column, .tri-column.side, .tri-column.middle, .quad-col, .tri-quart-col {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nav-links a {display: none;}
+  .nav-links a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nav-links.responsive {position: relative;}
+  .nav-links.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .nav-links.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
   }
 }
