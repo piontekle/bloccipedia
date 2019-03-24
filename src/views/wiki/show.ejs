@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h2 class="h-display"><%= wiki.title %></h2>
+      <a href="/wiki/<%= wiki.id %>/edit">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Edit</button>
+      </a>
+      <form style="display:initial" action="/wiki/<%= wiki.id %>/destroy" method="post">
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Delete</button>
+      </form>
+      <div class="full-page">
+        <p class="p-display-small"><%= wiki.body %></p>
+      </div>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

@@ -17,6 +17,7 @@ nav a {
 
 nav a.logo {
   font-size: 25px;
+  font-family: 'Sedgwick Ave', cursive;
   color: #000099;
   font-weight: bold;
 }
@@ -33,6 +34,7 @@ nav a.logo {
 .nav-links a:hover {
   background-color: #FF0099;
   color: white;
+  cursor: pointer;
 }
 
 .nav-links .icon {
@@ -69,6 +71,12 @@ footer {
   font-size: 20px;
 }
 
+.p-display-small {
+  font-family: 'Playfair Display', serif;
+  padding-left: 10px;
+  font-size: 12px;
+}
+
 .text-muted {
   color: rgb(128,128,128);
 }
@@ -87,13 +95,18 @@ footer {
   border-radius: 4px;
   text-align: center;
 }
+
+.list-title {
+  font-family: 'Playfair Display', serif;
+  font-style: bold;
+}
 /* -----FORMS, ALERTS, TABLES, ETC.----- */
 label {
   padding: 12px 12px 12px 0;
   display: inline-block;
 }
 
-input[type=text], [type=email], [type=password] {
+input[type=text], [type=email], [type=password], textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -127,7 +140,28 @@ input[type=text], [type=email], [type=password] {
 .table-alt-color tr:nth-child(odd) {
   background-color: #CCFFFF;
 }
+
+.list-group {
+  list-style-type: none;
+  width: 500px;
+}
+
+.list-item {
+  padding: 10px;
+  overflow: auto;
+}
+
+.list-item:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+
 /* -----PAGE LAYOUT------ */
+.row {
+  display: flex;
+}
+
 .full-page {
   width: 100%;
   border-style: double;
@@ -184,7 +218,7 @@ input[type=text], [type=email], [type=password] {
   clear: both;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
   nav a {
     float: none;
     display: block;

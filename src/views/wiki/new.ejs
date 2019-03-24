@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+
+      <h2 class="h-display">New Wiki</h2>
+      <hr>
+
+      <form action="/wiki/create" method="post">
+        <div class="row">
+          <div class="quad-col">
+            <label for="title">Title:</label>
+          </div>
+          <div class="tri-quart-col">
+            <input type="text" name="title" placeholder="Enter Title">
+            <small class="text-muted" id="titleHelp">must be at least 5 characters long</small>
+          </div>
+        </div>
+        <div class="row">
+          <div class="quad-col">
+            <label for="body">Body:</label>
+          </div>
+          <div class="tri-quart-col">
+            <textarea name="body" placeholder="Enter details"></textarea>
+            <small class="text-muted" id="bodyHelp">must be at least 10 characters long</small>
+          </div>
+        </div>
+        <% if (currentUser && (currentUser.isAdmin() || currentUser.isPremium())) { %>
+          <div class="row">
+            <label for="switch-2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+              <input type="checkbox" id="switch-2" class="mdl-switch__input" name="private" value="true">
+              <span class="mdl-switch__label">Private</span>
+            </label>
+          </div>
+        <% } %>
+
+        <div class="row">
+          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Create</button>
+        </div>
+      </form>
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>
