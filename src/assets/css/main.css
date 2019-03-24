@@ -98,11 +98,13 @@ footer {
 
 .list-title {
   font-family: 'Playfair Display', serif;
+  font-size: 20px;
   font-style: bold;
 }
 /* -----FORMS, ALERTS, TABLES, ETC.----- */
 label {
   padding: 12px 12px 12px 0;
+  font-weight: bold;
   display: inline-block;
 }
 
@@ -146,6 +148,10 @@ input[type=text], [type=email], [type=password], textarea {
   width: 500px;
 }
 
+.list-group tr:nth-child(odd) {
+  background-color: #CCFFFF;
+}
+
 .list-item {
   padding: 10px;
   overflow: auto;
@@ -155,7 +161,6 @@ input[type=text], [type=email], [type=password], textarea {
   background: #eee;
   cursor: pointer;
 }
-
 
 /* -----PAGE LAYOUT------ */
 .row {
