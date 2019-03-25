@@ -24,6 +24,6 @@
     "dialect": "postgres",
     "logging": false,
     "operatorAliases": false,
-    "use_env_variable": "https://piontekle-bloccipedia.herokuapp.com/"
+    "use_env_variable": "DATABASE_URL"
   }
 }
