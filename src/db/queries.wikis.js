@@ -1,5 +1,5 @@
 const Wiki = require("./models").Wiki;
-const Authorizer = require("../policies/application");
+const Authorizer = require("../policies/wiki");
 
 module.exports = {
   getAllWikis(callback) {

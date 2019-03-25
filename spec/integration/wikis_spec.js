@@ -14,7 +14,8 @@ describe("routes: wiki", () => {
       User.create({
         name: "Lauren",
         email: "user@example.com",
-        password: "123456"
+        password: "123456",
+        role: 0
       })
       .then((user) => {
         this.user = user;
@@ -43,7 +44,7 @@ describe("routes: wiki", () => {
         name: "LP",
         email: "standard@example.com",
         password: "123456",
-        role: "standard"
+        role: 0
       })
       .then((user) => {
         request.get({

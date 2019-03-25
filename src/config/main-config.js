@@ -7,7 +7,6 @@ const expressValidator = require("express-validator");
 const session = require("express-session");
 const flash = require("express-flash");
 const passportConfig = require("./passport-config");
-const User = require("../db/models").User;
 
 module.exports = {
   init(app, express){
