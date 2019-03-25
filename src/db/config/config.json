@@ -19,9 +19,11 @@
   "production": {
     "username": "postgres",
     "password": null,
-    "database": "process.env.DATABASE_URL",
+    "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "use_env_variable": "DATABASE_URL"
+    "logging": false,
+    "operatorAliases": false,
+    "use_env_variable": "https://piontekle-bloccipedia.herokuapp.com/"
   }
 }

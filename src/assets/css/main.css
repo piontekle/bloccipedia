@@ -171,6 +171,7 @@ input[type=text], [type=email], [type=password], textarea {
   width: 100%;
   border-style: double;
   border-width: medium;
+  border-radius: 5px;
   border-color: #808080;
 }
 
