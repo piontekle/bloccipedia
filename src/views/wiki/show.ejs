@@ -9,9 +9,9 @@
     <main class="container">
 
       <% include ../static/partials/messages.ejs %>
-
+      <a href="/wiki">Back to Wiki List</a>
       <h2 class="h-display"><%= wiki.title %></h2>
-      <% if(currentUser) {%>
+      <% if(currentUser && !wiki.private) {%>
         <a href="/wiki/<%= wiki.id %>/edit">
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Edit</button>
         </a>
@@ -22,7 +22,7 @@
       </form>
       <% } %>
       <div class="full-page">
-        <p class="p-display-small"><%= wiki.body %></p>
+        <p class="p-display small"><%= wiki.body %></p>
       </div>
 
     </main>

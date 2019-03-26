@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+      <h2 class="h-display">Hello, <%= user.name %>!</h2><hr>
+
+      <div class="row">
+        <div class="duo-col">
+          <h3 class="h-display">Info:</h3>
+          <span class="p-display title">Name:</span><p class="p-display"><%= user.name %></p>
+          <span class="p-display title">Account Level:</span>
+          <p class="p-display">
+            <%= user.roleName(user.role) %>
+          <a href="/users/<%= user.id %>/status">
+            <button class="mdl-button mdl-js-button mdl-button--primary">Change</button>
+          </a></p>
+          <span class="p-display title"> Member Since:</span><p class="p-display"><%= user.createdAt %></p>
+        </div>
+        <div class="duo-col">
+          <h3 class="h-display">Latest Wikis</h3>
+          <ul class="list-group">
+            <% if (wikis) { %>
+              <% wikis.forEach((wiki) => { %>
+                <li class="list-item">
+                  <a class="list-title" href="/wiki/<%= wiki.id %>"><%= wiki.title %></a>
+                </li>
+              <% }) %>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+
+
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

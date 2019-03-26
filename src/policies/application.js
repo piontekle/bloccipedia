@@ -9,11 +9,11 @@ module.exports = class ApplicationPolicy {
   }
 
   _isAdmin() {
-    return this.user && this.user.role == "admin";
+    return this.user && this.user.role == 2;
   }
 
   _isPremium() {
-    return this.user && this.user.role == "premium";
+    return this.user && this.user.role == 1;
   }
 
   _isPrivate() {
@@ -43,5 +43,9 @@ module.exports = class ApplicationPolicy {
 
   destroy() {
     return this._isAdmin();
+  }
+
+  upgrade() {
+    return true;
   }
 }

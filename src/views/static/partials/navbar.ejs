@@ -4,6 +4,7 @@
     <a href="/">Home</a>
     <a href="/wiki">Wikis</a>
     <% if(currentUser) { %>
+      <a class="nav-right" href="/users/<%= currentUser.id %>">Account</a>
       <a class="nav-right" href="/users/sign_out">Sign Out</a>
     <% } else { %>
       <a class="nav-right" href="/users/sign_up">Sign Up</a>

@@ -45,5 +45,60 @@ module.exports = {
     req.logout();
     req.flash("notice", "You've succesfully signed out!");
     res.redirect("/");
+  },
+  show(req, res, next){
+    userQueries.getUser(req.params.id, (err, result) => {
+
+      if(err || result.user === undefined){
+        req.flash("notice", "No user found with that ID.");
+        res.redirect("/");
+      } else {
+        res.render("users/show", {...result})
+      }
+    })
+  },
+  change(req, res, next){
+    userQueries.getUser(req.params.id, (err, result) => {
+      if(err || result.user === undefined){
+        req.flash("notice", "No user found with that ID.");
+        res.redirect(404, `/users/${req.params.id}`);
+      } else {
+        const user = result.user
+        res.render("users/status", {user});
+      }
+    })
+  },
+  premium(req, res, next){
+    var stripe = require("stripe")("pk_test_Q7RrOMow6AlxdPcFSWmqxy5400OZxsCg2D");
+
+    const token = req.body.stripeToken;
+
+    const charge = stripe.charges.create({
+      amount: 999,
+      currency: "usd",
+      description: "Upgrade to Premium charge",
+      source: token
+    });
+
+    userQueries.updateUserRole(req.params.id, 1, (err, user) => {
+      if (err || user == null){
+        req.flash("notice", "No user found matching that ID.")
+        res.redirect(404, `/users/${req.params.id}`);
+      } else {
+        req.flash("notice", "Congrats! You have been upgraded to Premium!");
+        res.redirect(`/users/${req.params.id}`);
+      }
+    });
+  },
+  standard(req, res, next){
+    userQueries.updateUserRole(req.params.id, 0, (err, user) => {
+      if (err || user == null){
+        req.flash("notice", "No user found matching that ID.")
+        res.redirect(404, `/users/${req.params.id}`);
+      } else {
+        req.flash("notice", "Your account has been changed to a standard account.");
+        res.redirect(`/users/${req.params.id}`);
+      }
+    })
   }
 }

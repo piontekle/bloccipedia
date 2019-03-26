@@ -30,12 +30,23 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   };
+
   User.prototype.isAdmin = function() {
-    return this.role === 2;
+    return this.role == 2;
   };
 
   User.prototype.isPremium = function() {
-    return this.role === 1;
+    return this.role == 1;
+  }
+
+  User.prototype.roleName = function (num) {
+    if (num == 0) {
+      return "Standard"
+    } else if (num == 1) {
+      return "Premium"
+    } else {
+      return "Admin"
+    }
   }
 
   return User;

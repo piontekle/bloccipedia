@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+
+      <% include ../static/partials/messages.ejs %>
+      <h2 class="h-display">Account Levels</h2>
+      <div class="row">
+
+        <div class="duo-col">
+          <div class="container">
+            <h3 class="card-title center">Standard</h3><hr>
+            <p class="card-text">Create & Edit Public wikis</p>
+            <p class="card-title center">FREE</p>
+            <p class="card-title center">
+              <form style="text-align: center;" action="/users/<%= user.id %>/standard" method="post">
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Click Here</button>
+              </form>
+            </p>
+          </div>
+        </div>
+
+        <div class="duo-col">
+          <div class="container">
+            <h3 class="card-title center">Premium</h3><hr>
+            <p class="card-text">Create & Edit both Public & Private wikis</p>
+            <p class="card-title center">
+              $15/month<br>
+
+              <form id="payment-form" style="text-align: center;" method="POST" action="/users/<%= user.id %>/premium">
+                <script src="https://checkout.stripe.com/checkout.js"></script>
+
+                <button type="submit" id="customButton" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Purchase</button>
+
+                <script>
+                  var handler = StripeCheckout.configure({
+                    key: 'pk_test_Q7RrOMow6AlxdPcFSWmqxy5400OZxsCg2D',
+                    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+                    locale: 'auto',
+                    token: function(token) {
+                      // You can access the token ID with `token.id`.
+                      // Get the token ID to your server-side code for use.
+                      $("#stripeToken").val(token.id);
+                      $("#stripeEmail").val(token.email);
+                      $("#payment-form").submit();
+                    }
+                  });
+
+                  document.getElementById('customButton').addEventListener('click', function(e) {
+                    // Open Checkout with further options:
+                    handler.open({
+                      name: 'Bloccipedia',
+                      description: 'Premium Account Upgrade Charge',
+                      amount: 1500
+                    });
+                    e.preventDefault();
+                  });
+
+                  // Close Checkout on page navigation:
+                  window.addEventListener('popstate', function() {
+
+                    handler.close();
+                  });
+                </script>
+              </form>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <% include ../static/partials/baseScripts.ejs %>
+
+  </body>
+</html>

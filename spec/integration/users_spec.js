@@ -8,14 +8,26 @@ const User = require("../../src/db/models").User;
 describe("routes : users", () => {
 
   beforeEach((done) => {
+    this.user;
+
     sequelize.sync({force: true})
     .then(() => {
-      done();
+      User.create({
+        name: "Lauren",
+        email: "user@example.com",
+        password: "123456",
+        role: 0
+      })
+      .then((user) => {
+        this.user = user;
+
+        done();
+      })
+      .catch((err) => {
+        console.log(err);
+        done();
+      })
     })
-    .catch((err) => {
-      console.log(err);
-      done();
-    });
   })
 
   describe("GET /users/sign_up", () => {
@@ -89,6 +101,79 @@ describe("routes : users", () => {
     });
 
   });
+
+  describe("GET /users/:id", () => {
+    it("should render a view with the user's profile", (done) => {
+      request.get(`${base}${this.user.id}`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain(this.user.name);
+        done();
+      })
+    })
+  })
+
+  describe("GET /users/:id/status", () => {
+    it("should render a view with the user's profile", (done) => {
+      request.get(`${base}${this.user.id}/status`, (err, res, body) => {
+        expect(err).toBeNull();
+        expect(body).toContain("Account Levels");
+        done();
+      })
+    })
+  })
+
+  describe("POST /users/:id/premium", () => {
+    it("should upgrade user's role to premium", (done) => {
+      const options = {
+        url: `${base}${this.user.id}/premium`,
+        form: {
+          role: 1
+        }
+      };
+
+      expect(this.user.role).toBe("0");
+
+      request.post(options, (err, res, body) => {
+        expect(err).toBeNull();
+
+        User.findOne({where: {id: this.user.id}})
+        .then((user) => {
+          expect(user.role).toBe("1");
+          done();
+        })
+      })
+
+    })
+  })
+
+  describe("POST /users/:id/standard", () => {
+    it("should change user's role to standard", (done) => {
+      User.create({
+        name: "LP",
+        email: "standarder@email.com",
+        password: "4567890",
+        role: 1
+      })
+      .then((user) => {
+        const options = {
+          url: `${base}${user.id}/standard`,
+          form: {
+            role: 0
+          }
+        }
+
+        request.post(options, (err, res, body) => {
+          expect(err).toBeNull();
+
+          User.findOne({where: {email: "standarder@email.com"}})
+          .then((user) => {
+            expect(user.role).toBe("0");
+            done();
+          })
+        })
+      })
+    })
+  })
 
 
 })
