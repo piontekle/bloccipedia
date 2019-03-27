@@ -14,7 +14,7 @@ module.exports = {
   },
   getWiki(id, callback){
     let result = {};
-    Wiki.findByPk(id)
+    return Wiki.findByPk(id)
     .then((wiki) => {
       if(!wiki) {
         callback(404);

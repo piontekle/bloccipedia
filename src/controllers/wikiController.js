@@ -49,7 +49,6 @@ module.exports = {
   show(req, res, next){
     wikiQueries.getWiki(req.params.id, (err, result) => {
       var wiki = result["wiki"];
-      var collaborators = result["collaborators"];
 
       if(err || wiki == null){
         res.redirect(404, "/");

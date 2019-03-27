@@ -42,26 +42,6 @@
                   </label>
                 </div>
               <% } %>
-              <% if (wiki.private) { %>
-                <div class="row">
-                  <div class="duo-col">
-                    <div class="container">
-                      <h4 class="h-display">Add/Remove Collaborators</h4>
-                      <% include ../collaborators/add.ejs %>
-                    </div>
-                  </div>
-                  <div class="duo-col">
-                    <div class="container">
-                      <h4 class="h-display">Collaborators</h4>
-                      <% if(wiki.collaborators) { %>
-                        <% wiki.collaborators.forEach((collaborator) => { %>
-                          <-% include("../collaborators/show.ejs", {collaborator}) %>
-                        <% }) %>
-                      <% } %>
-                    </div>
-                  </div>
-                </div>
-              <% } %>
               <div class="row">
                 <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Update</button>
               </div>
@@ -75,6 +55,26 @@
           </div>
         </div>
       </div>
+      <% if (wiki.private) { %>
+        <div class="row">
+          <div class="duo-col">
+            <div class="container">
+              <h4 class="h-display">Add/Remove Collaborators</h4>
+              <% include ../collaborators/add.ejs %>
+            </div>
+          </div>
+          <div class="duo-col">
+            <div class="container">
+              <h4 class="h-display">Collaborators</h4>
+              <% if(wiki.collaborators) { %>
+                <% wiki.collaborators.forEach((collaborator) => { %>
+                  <-% include("../collaborators/show.ejs", {collaborator}) %>
+                <% }) %>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% } %>
 
     </main>
 

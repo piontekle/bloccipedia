@@ -6,9 +6,12 @@ const Authorizer = require('../policies/application');
 
 module.exports = {
   add(req, res, next){
-    const authorized = new Authorizer(req.user, wiki, req.collaborator).addCollaborator();
+    const authorized = new Authorizer(req.user, req.wiki, req.collaborator).addCollaborator();
 
-    if(authorized) {
+    if(true) {
+      console.log("*****************")
+      console.log("STARTING COLLAB ADD")
+      console.log("******************")
       collaboratorQueries.add(req, (err, collaborator) => {
         if (err) {
           req.flash("error", err);
@@ -28,7 +31,7 @@ module.exports = {
       if(err || wiki == null){
         res.redirect(404, "/");
       } else {
-        const authorized = new Authorizer(req.user, wiki, collaborators).edit();
+        const authorized = new Authorizer(req.user, req.wiki, collaborators).edit();
 
         if(authorized) {
           res.render("collaborators/edit", {wiki, collaborators});
