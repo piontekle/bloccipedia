@@ -5,11 +5,12 @@ const Authorizer = require("../policies/application");
 
 module.exports = {
   add(req, callback) {
-    if (req.user.email == req.body.collaborator){
+
+    if (req.user.email == req.body.email){
       return callback("Cannot add yourself as a collaborator");
     }
 
-    User.findAll({where: { email: req.body.collaborator }})
+    User.findAll({where: { email: req.body.email }})
     .then((users) => {
       if(!users[0]){
         return callback("User not found.");
@@ -23,7 +24,7 @@ module.exports = {
       })
       .then((collaborators) => {
         if(collaborators.length != 0){
-          return callback(`${req.body.collaborator} is already a collaborator on this wiki.`);
+          return callback(`${req.body.email} is already a collaborator on this wiki.`);
         }
 
         let newCollaborator = {

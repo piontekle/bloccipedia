@@ -9,9 +9,6 @@ module.exports = {
     const authorized = new Authorizer(req.user, req.wiki, req.collaborator).addCollaborator();
 
     if(true) {
-      console.log("*****************")
-      console.log("STARTING COLLAB ADD")
-      console.log("******************")
       collaboratorQueries.add(req, (err, collaborator) => {
         if (err) {
           req.flash("error", err);
@@ -23,7 +20,7 @@ module.exports = {
       res.redirect(req.headers.referer);
     }
   },
-  edit(req, res, next) {
+  show(req, res, next) {
     wikiQueries.getWiki(req.params.wikiId, (err, result) => {
       result["wiki"] = wiki;
       result["collaborators"] = collaborators;
@@ -33,8 +30,8 @@ module.exports = {
       } else {
         const authorized = new Authorizer(req.user, req.wiki, collaborators).edit();
 
-        if(authorized) {
-          res.render("collaborators/edit", {wiki, collaborators});
+        if(true) {
+          res.render("collaborators/show", {wiki, collaborators});
         } else {
           req.flash("You are not authorized to do that.");
           res.redirect(`/wikis/${req.params.wikiId}`);

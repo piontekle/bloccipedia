@@ -37,7 +37,7 @@
               <% if (currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id == wiki.userId))) { %>
                 <div class="row">
                   <label for="switch-2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
-                    <input type="checkbox" id="switch-2" class="mdl-switch__input" name="private" value="true">
+                    <input type="checkbox" id="switch-2" class="mdl-switch__input" name="private">
                     <span class="mdl-switch__label">Private</span>
                   </label>
                 </div>
@@ -51,7 +51,7 @@
         <div class="duo-col">
           <div class="container">
             <h2 class="h-display"><%= wiki.title %></h2>
-            <p class="p-display-small"><%= wiki.body %></p>
+            <p class="p-display-small"><%- markdownBody %></p>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
               <h4 class="h-display">Collaborators</h4>
               <% if(wiki.collaborators) { %>
                 <% wiki.collaborators.forEach((collaborator) => { %>
-                  <-% include("../collaborators/show.ejs", {collaborator}) %>
+                  <%- include("../collaborators/show.ejs", {collaborator}) %>
                 <% }) %>
               <% } %>
             </div>

@@ -87,7 +87,8 @@ module.exports = {
         const authorized = new Authorizer(req.user, wiki).edit();
 
         if(authorized) {
-          res.render("wiki/edit", {wiki, collaborators});
+          markdownBody = markdown.toHTML(wiki.body);
+          res.render("wiki/edit", {wiki, markdownBody, collaborators});
         } else {
           req.flash("notice", "You are not authorized to do that.");
           res.redirect(`/wiki/${req.params.id}`);
