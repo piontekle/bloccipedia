@@ -1,4 +1,5 @@
 const userQueries = require("../db/queries.users.js");
+const wikiQueries = require("../db/queries.wikis.js");
 const passport = require("passport");
 const email = require("../utilities/email.js");
 
@@ -7,22 +8,25 @@ module.exports = {
     res.render("users/sign_up");
   },
   create(req, res, next){
-    let newUser = {
+    let user = {
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
       passwordConfirmation: req.body.passwordConfirmation
     };
 
-    userQueries.createUser(newUser, (err, user) => {
+    userQueries.createUser(user, (err, user) => {
       if(err){
         req.flash("error", err);
         res.redirect("/users/sign_up");
       } else {
-        passport.authenticate("local")(req, res, () => {
-          email(newUser.name, newUser.email);
-          req.flash("notice", "You've succesfully signed in!");
-          res.redirect("/");
+
+        userQueries.getUser(user.id, (err, result) => {
+          passport.authenticate("local")(req, res, () => {
+            email(user.name, user.email);
+            req.flash("notice", "You've succesfully signed up!");
+            res.redirect(`/users/${user.id}/status`);
+          })
         })
       }
     });
@@ -96,8 +100,10 @@ module.exports = {
         req.flash("notice", "No user found matching that ID.")
         res.redirect(404, `/users/${req.params.id}`);
       } else {
-        req.flash("notice", "Your account has been changed to a standard account.");
-        res.redirect(`/users/${req.params.id}`);
+        wikiQueries.downgradeWikis(req.params.id, (err, wikis) => {
+          req.flash("notice", "Your account is now a standard account.");
+          res.redirect(`/users/${req.params.id}`);
+        })
       }
     })
   }

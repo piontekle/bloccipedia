@@ -3,6 +3,7 @@ const server = require("../../src/server");
 const base = "http://localhost:3000/users/";
 const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
+const Wiki = require("../../src/db/models").Wiki;
 
 
 describe("routes : users", () => {
@@ -173,7 +174,41 @@ describe("routes : users", () => {
         })
       })
     })
-  })
+
+    it("should downgrade the user's private wikis to public", () => {
+      User.create({
+        name: "LP",
+        email: "standarder@email.com",
+        password: "4567890",
+        role: 1
+      })
+      .then((user) => {
+        Wiki.create({
+          title: "How to Private",
+          body: "You gotta get that premium",
+          private: true,
+          userId: user.id
+        })
+        .then((wiki) => {
+          const options = {
+            url: `${base}${user.id}/standard`,
+            form: {
+              role: 0
+            }
+          }
+
+          request.post(options, (err, res, body) => {
+            expect(err).toBeNull();
+
+            Wiki.findOne({where: {id: wiki.id}})
+            .then((wiki) => {
+              expect(wiki.private).toBe(false);
+            });
+          });
+        });
+      });
+    });
+  });
 
 
 })

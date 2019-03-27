@@ -18,9 +18,22 @@
             <p class="card-text">Create & Edit Public wikis</p>
             <p class="card-title center">FREE</p>
             <p class="card-title center">
-              <form style="text-align: center;" action="/users/<%= user.id %>/standard" method="post">
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Click Here</button>
-              </form>
+              <% if(user.role == 1) { %>
+                <form
+                style="text-align: center;"
+                onsubmit="return confirm('All private wikis will become public, are you sure you want to change to standard?')"
+                action="/users/<%= user.id %>/standard"
+                method="post">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Click Here</button>
+                </form>
+              <% } else { %>
+                <form
+                style="text-align: center;"
+                action="/users/<%= user.id %>/standard"
+                method="post">
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Click Here</button>
+                </form>
+              <% } %>
             </p>
           </div>
         </div>

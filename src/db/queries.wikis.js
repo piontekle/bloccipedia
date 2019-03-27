@@ -73,5 +73,19 @@ module.exports = {
          callback("Forbidden");
       }
     });
+  },
+  downgradeWikis(userId, callback){
+    return Wiki.findAll()
+    .then((wikis) => {
+      wikis.forEach(wiki => {
+        if (wiki.userId == userId && wiki.private == true) {
+          wiki.update({private: false});
+        }
+      })
+      callback(null, wikis);
+    })
+    .catch((err) => {
+      callback(err);
+    })
   }
 }
