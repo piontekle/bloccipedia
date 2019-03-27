@@ -1,5 +1,5 @@
 module.exports = class ApplicationPolicy {
-  constructor(user, record) {
+  constructor(user, record, callaborators) {
     this.user = user;
     this.record = record;
   }
@@ -20,6 +20,11 @@ module.exports = class ApplicationPolicy {
     return this.record.private;
   }
 
+  _isCollaborator() {
+    let index = this.record.collaborators.indexOf(this.user.email);
+    return this.record.collaborators[index].userId == this.user.id;
+  }
+
   new() {
     return !!this.user;
   }
@@ -29,7 +34,7 @@ module.exports = class ApplicationPolicy {
   }
 
   show() {
-    return !this._isPrivate() || this._isAdmin() || this._isOwner();
+    return !this._isPrivate() || this._isAdmin() || this._isOwner() || this._isCollaborator();
   }
 
   edit() {
@@ -47,5 +52,12 @@ module.exports = class ApplicationPolicy {
 
   upgrade() {
     return true;
+  }
+
+  addCollaborator() {
+    return this._isAdmin() || this._isOwner();
+  }
+  editCollaborator() {
+    return this.addCollaborator();
   }
 }

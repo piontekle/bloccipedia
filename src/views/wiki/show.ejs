@@ -10,19 +10,19 @@
 
       <% include ../static/partials/messages.ejs %>
       <a href="/wiki">Back to Wiki List</a>
-      <h2 class="h-display"><%= markdownWiki.title %></h2>
-      <% if(currentUser && (!markdownWiki.private || currentUser.id == markdownWiki.userId)) { %>
-        <a href="/wiki/<%= markdownWiki.id %>/edit">
+      <h2 class="h-display"><%= wiki.title %></h2>
+      <% if(currentUser && (!wiki.private || currentUser.id == wiki.userId || currentUser.role == 2)) { %>
+        <a href="/wiki/<%= wiki.id %>/edit">
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Edit</button>
         </a>
       <% } %>
-      <% if(currentUser && (currentUser.role == 2 || currentUser.id == markdownWiki.userId)) { %>
-      <form style="display:initial" action="/wiki/<%= markdownWiki.id %>/destroy" method="post">
+      <% if(currentUser && (currentUser.role == 2 || currentUser.id == wiki.userId)) { %>
+      <form style="display:initial" action="/wiki/<%= wiki.id %>/destroy" method="post">
         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Delete</button>
       </form>
       <% } %>
       <div class="full-page">
-        <p class="p-display small"><%- markdownWiki.body %></p>
+        <p class="p-display small"><%- wiki.body %></p>
       </div>
 
     </main>

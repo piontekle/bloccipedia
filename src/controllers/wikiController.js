@@ -47,23 +47,19 @@ module.exports = {
     }
   },
   show(req, res, next){
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      var wiki = result["wiki"];
+      var collaborators = result["collaborators"];
+
       if(err || wiki == null){
         res.redirect(404, "/");
       } else {
         const authorized = new Authorizer(req.user, wiki).show();
 
         if(authorized) {
-          let markdownWiki = {
-            title: wiki.title,
-            body: markdown.toHTML(wiki.body),
-            private: wiki.private,
-            userId: wiki.userId,
-            id: wiki.id
-          }
-          res.render("wiki/show", {markdownWiki});
+          wiki.body = markdown.toHTML(wiki.body);
+          res.render("wiki/show", {wiki});
         } else {
-          markdown.toHTML(wiki.body)
           req.flash("notice", "You are not authorized to do that.");
           res.redirect("/wiki");
         }
@@ -82,17 +78,20 @@ module.exports = {
     });
   },
   edit(req, res, next){
-    wikiQueries.getWiki(req.params.id, (err, wiki) => {
+    wikiQueries.getWiki(req.params.id, (err, result) => {
+      var wiki = result["wiki"];
+      var collaborators = result["collaborators"];
+
       if (err || wiki == null){
         res.redirect(404, "/");
       } else {
         const authorized = new Authorizer(req.user, wiki).edit();
 
         if(authorized) {
-          res.render("wiki/edit", {wiki});
+          res.render("wiki/edit", {wiki, collaborators});
         } else {
           req.flash("notice", "You are not authorized to do that.");
-          res.redirect(`/topics/${req.params.topicId}/posts/${req.params.id}`);
+          res.redirect(`/wiki/${req.params.id}`);
         }
       }
     });

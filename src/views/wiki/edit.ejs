@@ -34,7 +34,7 @@
                   <small class="text-muted" id="bodyHelp">must be at least 10 characters long</small>
                 </div>
               </div>
-              <% if (currentUser && (currentUser.isAdmin() || currentUser.isPremium())) { %>
+              <% if (currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id == wiki.userId))) { %>
                 <div class="row">
                   <label for="switch-2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
                     <input type="checkbox" id="switch-2" class="mdl-switch__input" name="private" value="true">
@@ -42,7 +42,26 @@
                   </label>
                 </div>
               <% } %>
-
+              <% if (wiki.private) { %>
+                <div class="row">
+                  <div class="duo-col">
+                    <div class="container">
+                      <h4 class="h-display">Add/Remove Collaborators</h4>
+                      <% include ../collaborators/add.ejs %>
+                    </div>
+                  </div>
+                  <div class="duo-col">
+                    <div class="container">
+                      <h4 class="h-display">Collaborators</h4>
+                      <% if(wiki.collaborators) { %>
+                        <% wiki.collaborators.forEach((collaborator) => { %>
+                          <-% include("../collaborators/show.ejs", {collaborator}) %>
+                        <% }) %>
+                      <% } %>
+                    </div>
+                  </div>
+                </div>
+              <% } %>
               <div class="row">
                 <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Update</button>
               </div>
