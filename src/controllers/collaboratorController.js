@@ -20,36 +20,13 @@ module.exports = {
       res.redirect(req.headers.referer);
     }
   },
-  show(req, res, next) {
-    wikiQueries.getWiki(req.params.wikiId, (err, result) => {
-      result["wiki"] = wiki;
-      result["collaborators"] = collaborators;
-
-      if(err || wiki == null){
-        res.redirect(404, "/");
+  destroy(req, res, next){
+    collaboratorQueries.remove(req, (err, comment) => {
+      if(err) {
+        res.redirect(err, req.headers.referer);
       } else {
-        const authorized = new Authorizer(req.user, req.wiki, collaborators).edit();
-
-        if(true) {
-          res.render("collaborators/show", {wiki, collaborators});
-        } else {
-          req.flash("You are not authorized to do that.");
-          res.redirect(`/wikis/${req.params.wikiId}`);
-        }
+        res.redirect(err, req.headers.referer);
       }
-    })
-  },
-  remove(req, res, next){
-    if(req.user) {
-      collaboratorQueries.remove(req, (err, collaborator) => {
-        if(err){
-          req.flash("error", err);
-        }
-        res.redirect(req.headers.referer);
-      })
-    } else {
-      req.flash("notice", "You must be signed in to remove Collaborators!");
-			res.redirect(req.headers.referer);
-    }
+    });
   }
 }

@@ -10,15 +10,15 @@ module.exports = {
       return callback("Cannot add yourself as a collaborator");
     }
 
-    User.findAll({where: { email: req.body.email }})
-    .then((users) => {
-      if(!users[0]){
+    User.findOne({where: { email: req.body.email }})
+    .then((user) => {
+      if(!user){
         return callback("User not found.");
       }
 
       Collaborator.findAll({
         where: {
-          userId: users[0].id,
+          userId: user.id,
           wikiId: req.params.wikiId
         }
       })
@@ -43,25 +43,19 @@ module.exports = {
     })
   },
   remove(req, callback) {
-    const authorized = new Authorizer(req.user, wiki, req.body.collaborator).editCollaborator();
+    return Collaborator.findByPk(req.params.id)
+    .then((collaborator) => {
+      const authorized = new Authorizer(req.user, wiki, req.body.email).editCollaborator();
 
-    if(authorized) {
-      Collaborator.destroy({
-        where: {
-          userId: req.body.collaborator,
-          wikiId: wikiId
-        }
-      })
-      .then((collaborators) => {
-        callback(null, collaborators);
-      })
-      .catch((err) => {
-        callback(err);
-      })
-    } else {
-      req.flash("notice", "You are not authorized to do that.");
-      callback(401);
-    }
+      if(authorized) {
+        collaborator.destroy();
+
+        callback(null, collaborator);
+      } else {
+        req.flash("notice", "You are not authorized to do that.")
+        callback(401)
+      }
+    })
   }
 
 }

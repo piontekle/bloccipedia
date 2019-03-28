@@ -66,8 +66,8 @@
           <div class="duo-col">
             <div class="container">
               <h4 class="h-display">Collaborators</h4>
-              <% if(wiki.collaborators) { %>
-                <% wiki.collaborators.forEach((collaborator) => { %>
+              <% if(collaborators) { %>
+                <% collaborators.forEach((collaborator) => { %>
                   <%- include("../collaborators/show.ejs", {collaborator}) %>
                 <% }) %>
               <% } %>

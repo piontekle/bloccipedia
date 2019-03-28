@@ -3,7 +3,7 @@
     <p> <%= collaborator.User.email %> </p>
     <% if (currentUser && (currentUser.id == collaborator.userId || currentUser.isAdmin() || currentUser.id == wiki.userId) { %>
       <form style="display:initial"
-        action="/wiki/<%= wiki.id %>/collaborators/remove"
+        action="/wiki/<%= wiki.id %>/collaborators/destroy"
         method="post">
         <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Remove</button>
       </form>
