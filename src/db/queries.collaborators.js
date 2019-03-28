@@ -1,7 +1,7 @@
 const Collaborator = require("./models").Collaborator;
 const User = require("./models").User;
 const Wiki = require("./models").Wiki;
-const Authorizer = require("../policies/application");
+const Authorizer = require("../policies/wiki");
 
 module.exports = {
   add(req, callback) {
@@ -28,7 +28,7 @@ module.exports = {
         }
 
         let newCollaborator = {
-          userId: users[0].id,
+          userId: user.id,
           wikiId: req.params.wikiId
         };
 
@@ -45,11 +45,10 @@ module.exports = {
   remove(req, callback) {
     return Collaborator.findByPk(req.params.id)
     .then((collaborator) => {
-      const authorized = new Authorizer(req.user, wiki, req.body.email).editCollaborator();
+      const authorized = new Authorizer(req.user, req.wiki, req.collaborator).editCollaborator();
 
       if(authorized) {
         collaborator.destroy();
-
         callback(null, collaborator);
       } else {
         req.flash("notice", "You are not authorized to do that.")

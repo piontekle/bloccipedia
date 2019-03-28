@@ -31,6 +31,22 @@ module.exports = (sequelize, DataTypes) => {
 
   };
 
+  Wiki.prototype.hasCollaborators = function() {
+    if (this.collaborators[0]) {
+      return true;
+    }
+  }
+
+  Wiki.prototype.isCollaboratorOn = function(userId) {
+    let isCollab = false;
+    this.collaborators.forEach((collaborator) => {
+      if (collaborator.userId == userId) {
+        isCollab = true;
+      }
+    })
+    return isCollab;
+  }
+
   Wiki.addScope("lastFiveFor", (userId) => {
     return {
       where: { userId: userId },

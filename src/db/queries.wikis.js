@@ -4,7 +4,7 @@ const Authorizer = require("../policies/wiki");
 
 module.exports = {
   getAllWikis(callback) {
-    return Wiki.findAll()
+    return Wiki.findAll({ include: [ {model: Collaborator, as: "collaborators"} ] })
     .then((wikis) => {
       callback(null, wikis);
     })
@@ -14,7 +14,7 @@ module.exports = {
   },
   getWiki(id, callback){
     let result = {};
-    return Wiki.findByPk(id)
+    return Wiki.findByPk(id, {include: [ {model: Collaborator, as: "collaborators"} ] })
     .then((wiki) => {
       if(!wiki) {
         callback(404);
@@ -46,8 +46,7 @@ module.exports = {
   deleteWiki(req, callback){
     return Wiki.findByPk(req.params.id)
     .then((wiki) => {
-      const authorized = true;
-      //new Authorizer(req.user, wiki).destroy();
+      const authorized = new Authorizer(req.user, wiki).destroy();
 
       if(authorized) {
         wiki.destroy()
@@ -69,10 +68,17 @@ module.exports = {
       if(!wiki){
         return callback("Wiki not found");
       }
+      let collaborator = Collaborator.findOne({
+        where: {
+          userId: req.user.id,
+          wikiId: wiki.id
+        }
+      })
 
-      const authorized = new Authorizer(req.user, wiki).update();
+      const authorized = new Authorizer(req.user, collaborator, wiki).update();
 
       if(authorized) {
+        updatedWiki.private == undefined ? updatedWiki.private = false : updatedWiki.private = true;
         wiki.update(updatedWiki, {
           fields: Object.keys(updatedWiki)
         })

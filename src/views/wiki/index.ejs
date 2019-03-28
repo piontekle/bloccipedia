@@ -21,6 +21,10 @@
             <li class="list-item">
               <a class="list-title" href="/wiki/<%= wiki.id %>"><%= wiki.title %></a>
             </li>
+          <% } else if (currentUser && (currentUser.id == wiki.userId || wiki.isCollaboratorOn(currentUser.id))) { %>
+            <li class="list-item">
+              <a class="list-title" href="/wiki/<%= wiki.id %>"><%= wiki.title %></a>
+            </li>
           <% } %>
         <% }) %>
       </ul>

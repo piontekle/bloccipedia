@@ -13,8 +13,11 @@
       <div class="row">
         <div class="duo-col">
           <div class="container">
-            <h2 class="h-display">Edit Wiki</h2>
-
+            <% if (wiki.private) { %>
+              <h2 class="h-display">Edit Private Wiki</h2>
+            <% } else { %>
+              <h2 class="h-display">Edit Public Wiki</h2>
+            <% } %>
             <form action="/wiki/<%= wiki.id %>/update" method="post">
               <div class="row">
                 <div class="quad-col">
@@ -34,13 +37,15 @@
                   <small class="text-muted" id="bodyHelp">must be at least 10 characters long</small>
                 </div>
               </div>
-              <% if (currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id == wiki.userId))) { %>
-                <div class="row">
-                  <label for="switch-2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
-                    <input type="checkbox" id="switch-2" class="mdl-switch__input" name="private">
-                    <span class="mdl-switch__label">Private</span>
-                  </label>
-                </div>
+              <% if (wiki.private && currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id == wiki.userId))) { %>
+
+                  <div class="row">
+                    <label for="switch-2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+                      <input type="checkbox" id="switch-2" class="mdl-switch__input" name="private" checked="" value="true">
+                      <span class="mdl-switch__label">Make Public</span>
+                    </label>
+                  </div>
+
               <% } %>
               <div class="row">
                 <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Update</button>
@@ -59,8 +64,12 @@
         <div class="row">
           <div class="duo-col">
             <div class="container">
-              <h4 class="h-display">Add/Remove Collaborators</h4>
-              <% include ../collaborators/add.ejs %>
+              <h4 class="h-display">Add Collaborators</h4>
+              <% if(currentUser && currentUser.id == wiki.userId) { %>
+                <% include ../collaborators/add.ejs %>
+              <% } else { %>
+                <p class="p-display">You must be the owner to add collaborators.</p>
+              <% } %>
             </div>
           </div>
           <div class="duo-col">

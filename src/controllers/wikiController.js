@@ -1,5 +1,7 @@
 const wikiQueries = require("../db/queries.wikis.js");
 const markdown = require("markdown").markdown;
+const Wiki = require("../db/models").Wiki;
+const Collaborator = require("../db/models").Collaborator;
 const Authorizer = require("../policies/wiki");
 
 module.exports = {
@@ -53,11 +55,17 @@ module.exports = {
       if(err || wiki == null){
         res.redirect(404, "/");
       } else {
-        const authorized = new Authorizer(req.user, wiki).show();
+        let collaborator = Collaborator.findOne({
+          where: {
+            userId: req.user.id,
+            wikiId: wiki.id
+          }
+        })
+        const authorized = new Authorizer(req.user, collaborator, wiki).show();
 
         if(authorized) {
           wiki.body = markdown.toHTML(wiki.body);
-          res.render("wiki/show", {wiki});
+          res.render("wiki/show", {...result});
         } else {
           req.flash("notice", "You are not authorized to do that.");
           res.redirect("/wiki");
@@ -84,7 +92,14 @@ module.exports = {
       if (err || wiki == null){
         res.redirect(404, "/");
       } else {
-        const authorized = new Authorizer(req.user, wiki).edit();
+        let collaborator = Collaborator.findOne({
+          where: {
+            userId: req.user.id,
+            wikiId: wiki.id
+          }
+        })
+
+        const authorized = new Authorizer(req.user, collaborator, wiki).edit();
 
         if(authorized) {
           markdownBody = markdown.toHTML(wiki.body);

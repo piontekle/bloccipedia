@@ -167,6 +167,7 @@ input[type=text], [type=email], [type=password], textarea {
 
 .list-item:hover {
   background: #eee;
+  border-radius: 5px;
   cursor: pointer;
 }
 

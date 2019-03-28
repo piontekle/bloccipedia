@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const collaboratorQueries = require("../db/queries.collaborators.js");
 const wikiQueries = require ('../db/queries.wikis.js');
-const Authorizer = require('../policies/application');
+const Authorizer = require('../policies/wiki');
 
 module.exports = {
   add(req, res, next){
-    const authorized = new Authorizer(req.user, req.wiki, req.collaborator).addCollaborator();
+    const authorized = new Authorizer(req.user, req.wiki, req.collaborator).editCollaborator();
 
-    if(true) {
+    if(authorized) {
       collaboratorQueries.add(req, (err, collaborator) => {
         if (err) {
           req.flash("error", err);
@@ -21,11 +21,11 @@ module.exports = {
     }
   },
   destroy(req, res, next){
-    collaboratorQueries.remove(req, (err, comment) => {
+    collaboratorQueries.remove(req, (err, collaborator) => {
       if(err) {
         res.redirect(err, req.headers.referer);
       } else {
-        res.redirect(err, req.headers.referer);
+        res.redirect(req.headers.referer);
       }
     });
   }

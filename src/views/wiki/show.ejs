@@ -11,14 +11,14 @@
       <% include ../static/partials/messages.ejs %>
       <a href="/wiki">Back to Wiki List</a>
       <h2 class="h-display"><%= wiki.title %></h2>
-      <% if(currentUser && (!wiki.private || currentUser.id == wiki.userId || currentUser.role == 2)) { %>
+      <% if(currentUser && (!wiki.private || currentUser.id == wiki.userId || currentUser.role == 2 || wiki.isCollaboratorOn(currentUser.id))) { %>
         <a href="/wiki/<%= wiki.id %>/edit">
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Edit</button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Edit</button>
         </a>
       <% } %>
       <% if(currentUser && (currentUser.role == 2 || currentUser.id == wiki.userId)) { %>
       <form style="display:initial" action="/wiki/<%= wiki.id %>/destroy" method="post">
-        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Delete</button>
+        <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Delete</button>
       </form>
       <% } %>
       <div class="full-page">

@@ -4,6 +4,6 @@ const router = express.Router();
 const collaboratorController = require("../controllers/collaboratorController");
 
 router.post("/wiki/:wikiId/collaborators/add", collaboratorController.add);
-router.post("/wiki/:wikiId/collaborators/destroy", collaboratorController.destroy);
+router.post("/wiki/:wikiId/collaborators/:id/destroy", collaboratorController.destroy);
 
 module.exports = router;
