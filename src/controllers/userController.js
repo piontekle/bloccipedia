@@ -73,16 +73,6 @@ module.exports = {
     })
   },
   premium(req, res, next){
-    var stripe = require("stripe")("pk_test_Q7RrOMow6AlxdPcFSWmqxy5400OZxsCg2D");
-
-    const token = req.body.stripeToken;
-
-    const charge = stripe.charges.create({
-      amount: 999,
-      currency: "usd",
-      description: "Upgrade to Premium charge",
-      source: token
-    });
 
     userQueries.updateUserRole(req.params.id, 1, (err, user) => {
       if (err || user == null){

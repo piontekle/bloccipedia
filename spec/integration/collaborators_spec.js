@@ -53,6 +53,19 @@ describe("routes : collaborators", () => {
       const options = {
         url: `${base}${this.wiki.id}/collaborators/add`
       };
+
+      request.post(options, (err, res, body) => {
+        Collaborator.findOne({where: {userId: this.user.id }})
+        .then((collaborator) => {
+          expect(collaborator).not.toBeNull();
+          expect(collaborator.id).not.toBeNull();
+          done();
+        })
+        .catch((err) => {
+          console.log(err);
+          done();
+        })
+      })
     })
 
   })

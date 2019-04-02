@@ -12,10 +12,10 @@
         <main class="container">
           <% include ../static/partials/messages.ejs %>
 
-          <form method="POST" action="/users/upgrade">
+          <form id="premium-charge-form" method="POST" action="/users/upgrade">
             <script
               src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-              data-key="pk_test_Q7RrOMow6AlxdPcFSWmqxy5400OZxsCg2D"
+              data-key="sk_test_fS0Bwk3FP5ddpTzIymLXjAqG00VVuyNSFl"
               data-amount="1500"
               data-name="Bloccipedia"
               data-description="Premium account charge"

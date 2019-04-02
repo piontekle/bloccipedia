@@ -1,11 +1,11 @@
-<form action="/wiki/<%= wiki.id %>/collaborators/add" method="post">
+<form id="collaborator-add-form" action="/wiki/<%= wiki.id %>/collaborators/add" method="post">
   <div class="row">
     <div class="quad-col">
       <label for="email">User email:</label>
     </div>
     <div class="tri-quart-col">
-      <input type="text" name="email" placeholder="Enter Email">
+      <input id="collaborator-email-input" type="text" name="email" placeholder="Enter Email">
     </div>
   </div>
-  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add</button>
+  <button id="collaborator-add-button" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Add</button>
 </form>

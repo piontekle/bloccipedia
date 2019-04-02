@@ -5,7 +5,6 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const User = require("../../src/db/models").User;
 const Wiki = require("../../src/db/models").Wiki;
 
-
 describe("routes : users", () => {
 
   beforeEach((done) => {
@@ -28,8 +27,8 @@ describe("routes : users", () => {
         console.log(err);
         done();
       })
-    })
-  })
+    });
+  });
 
   describe("GET /users/sign_up", () => {
     it("should render a view with a sign-up form", (done) => {
@@ -128,7 +127,11 @@ describe("routes : users", () => {
       const options = {
         url: `${base}${this.user.id}/premium`,
         form: {
-          role: 1
+          role: 1,
+          token: {
+            id: 3,
+            email: "user@example.com"
+          }
         }
       };
 
@@ -143,9 +146,8 @@ describe("routes : users", () => {
           done();
         })
       })
-
-    })
-  })
+    });
+  });
 
   describe("POST /users/:id/standard", () => {
     it("should change user's role to standard", (done) => {
@@ -162,7 +164,6 @@ describe("routes : users", () => {
             role: 0
           }
         }
-
         request.post(options, (err, res, body) => {
           expect(err).toBeNull();
 
@@ -172,42 +173,9 @@ describe("routes : users", () => {
             done();
           })
         })
-      })
-    })
-
-    it("should downgrade the user's private wikis to public", () => {
-      User.create({
-        name: "LP",
-        email: "standarder@email.com",
-        password: "4567890",
-        role: 1
-      })
-      .then((user) => {
-        Wiki.create({
-          title: "How to Private",
-          body: "You gotta get that premium",
-          private: true,
-          userId: user.id
-        })
-        .then((wiki) => {
-          const options = {
-            url: `${base}${user.id}/standard`,
-            form: {
-              role: 0
-            }
-          }
-
-          request.post(options, (err, res, body) => {
-            expect(err).toBeNull();
-
-            Wiki.findOne({where: {id: wiki.id}})
-            .then((wiki) => {
-              expect(wiki.private).toBe(false);
-            });
-          });
-        });
       });
     });
+
   });
 
 

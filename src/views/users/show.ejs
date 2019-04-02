@@ -14,9 +14,9 @@
       <div class="row">
         <div class="duo-col">
           <h3 class="h-display">Info:</h3>
-          <span class="p-display title">Name:</span><p class="p-display"><%= user.name %></p>
+          <span id="user-name" class="p-display title">Name:</span><p class="p-display"><%= user.name %></p>
           <span class="p-display title">Account Level:</span>
-          <p class="p-display">
+          <p id="user-role" class="p-display">
             <%= user.roleName(user.role) %>
           <a href="/users/<%= user.id %>/status">
             <button class="mdl-button mdl-js-button mdl-button--primary">Change</button>
@@ -25,7 +25,7 @@
         </div>
         <div class="duo-col">
           <h3 class="h-display">Latest Wikis</h3>
-          <ul class="list-group">
+          <ul id="user-wiki-list" class="list-group">
             <% if (wikis) { %>
               <% wikis.forEach((wiki) => { %>
                 <li class="list-item">

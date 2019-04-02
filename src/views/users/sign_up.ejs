@@ -12,13 +12,13 @@
         <main class="container">
           <% include ../static/partials/messages.ejs %>
 
-          <form method="POST" action="/users">
+          <form id="signup-form" method="POST" action="/users">
             <div class="row">
               <div class="quad-col">
                 <label for="name">Name:</label>
               </div>
               <div class="tri-quart-col">
-                <input type="text" name="name" placeholder="Enter Name">
+                <input id="new-user-name-input" type="text" name="name" placeholder="Enter Name">
                 <small class="text-muted" id="nameHelp">must not be empty</small>
               </div>
             </div>
@@ -27,7 +27,7 @@
                 <label for="email">Email:</label>
               </div>
               <div class="tri-quart-col">
-                <input type="email" name="email" placeholder="Enter Email">
+                <input id="new-user-email-input" type="email" name="email" placeholder="Enter Email">
                 <small class="text-muted" id="emailHelp">must be valid email</small>
               </div>
             </div>
@@ -36,7 +36,7 @@
                 <label for="password">Password:</label>
               </div>
               <div class="tri-quart-col">
-                <input type="password" name="password" placeholder="Enter Password"/>
+                <input id="new-user-password-input" type="password" name="password" placeholder="Enter Password"/>
                 <small class="text-muted" id="passwordHelp">must be at least 6 characters</small>
               </div>
             </div>
@@ -45,12 +45,12 @@
                 <label for="passwordConfirmation">Confirm Password:</label>
               </div>
               <div class="tri-quart-col">
-                <input type=password name="passwordConfirmation" placeholder="Re-enter Password"/>
+                <input id="new-user-password-confirmation" type=password name="passwordConfirmation" placeholder="Re-enter Password"/>
                 <small class="text-muted" id="passwordConfirmationHelp">must match password above</small>
               </div>
             </div>
             <div class="row">
-              <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Next</button>
+              <button id="new-user-next" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">Next</button>
             </div>
           </form>
         </main>

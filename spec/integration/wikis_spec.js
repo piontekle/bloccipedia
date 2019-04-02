@@ -13,7 +13,7 @@ describe("routes: wiki", () => {
     sequelize.sync({force: true}).then(() => {
       User.create({
         name: "Lauren",
-        email: "user@example.com",
+        email: "standard@example.com",
         password: "123456",
         role: 0
       })
@@ -40,25 +40,14 @@ describe("routes: wiki", () => {
 
   describe("member performing CRUD actions for Wiki", () => {
     beforeEach((done) => {
-      User.create({
-        name: "LP",
-        email: "standard@example.com",
-        password: "123456",
-        role: 0
-      })
-      .then((user) => {
-        request.get({
-          url: "http://localhost:3000/auth/fake",
-          form: {
-            role: user.role,
-            name: user.name,
-            userId: user.id,
-            email: user.email
-          }
-        },
-        (err, res, body) => {
-          done();
-        });
+      request.get({
+        url: "http://localhost:3000/auth/fake",
+        form: {
+          role: 0,
+          userId: this.user.id
+        }
+      }, (err, res, body) => {
+        done();
       });
     });
 
@@ -144,6 +133,7 @@ describe("routes: wiki", () => {
 
     describe("POST /wiki/:id/destroy", () => {
       it("should delete the wiki with the associated ID", (done) => {
+
         Wiki.findAll()
         .then((wikis) => {
           const wikiCountBeforeDelete = wikis.length;
@@ -165,7 +155,7 @@ describe("routes: wiki", () => {
       it("should render a view with an edit wiki form", (done) => {
         request.get(`${base}${this.wiki.id}/edit`, (err, res, body) => {
           expect(err).toBeNull();
-          expect(body).toContain("Edit Wiki");
+          expect(body).toContain("Edit Public Wiki");
           expect(body).toContain("How to binge watch LOTR Extended Versions");
           done();
         });

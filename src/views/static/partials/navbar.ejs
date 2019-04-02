@@ -1,14 +1,14 @@
 <nav>
   <a class="logo" href="/">Bloccipedia</a>
   <div class="nav-links" id="topNav">
-    <a href="/">Home</a>
-    <a href="/wiki">Wikis</a>
+    <a id="home-link" href="/">Home</a>
+    <a id="wikis-link" href="/wiki">Wikis</a>
     <% if(currentUser) { %>
-      <a class="nav-right" href="/users/<%= currentUser.id %>">Account</a>
-      <a class="nav-right" href="/users/sign_out">Sign Out</a>
+      <a id="user-account-link" class="nav-right" href="/users/<%= currentUser.id %>">Account</a>
+      <a id="signout-link" class="nav-right" href="/users/sign_out">Sign Out</a>
     <% } else { %>
-      <a class="nav-right" href="/users/sign_up">Sign Up</a>
-      <a class="nav-right" href="/users/sign_in">Sign In</a>
+      <a id="signup-link" class="nav-right" href="/users/sign_up">Sign Up</a>
+      <a id="signin-link" class="nav-right" href="/users/sign_in">Sign In</a>
     <% } %>
     <a href="javascript:void(0);" class="icon" onclick="hamburger()">
       <i class="material-icons">view_headline</i>

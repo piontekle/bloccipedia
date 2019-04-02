@@ -1,11 +1,11 @@
 <% if(collaborator) { %>
   <div class="row">
-    <p> <%= collaborator.User.email %>  </p>
+    <p id="collaborator-email"> <%= collaborator.User.email %>  </p>
   <% if (currentUser && (currentUser.id == collaborator.userId || currentUser.isAdmin() || currentUser.id == wiki.userId)) { %>
       <form style="display:initial"
         action="/wiki/<%= wiki.id %>/collaborators/<%= collaborator.id %>/destroy"
         method="post">
-        <button type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
+        <button id="collaborator-delete-button" type="submit" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
         style="width: 20px; height: 20px; min-width: initial;"> - </button>
       </form>
     <% } %>
