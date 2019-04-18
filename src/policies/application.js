@@ -5,6 +5,8 @@ module.exports = class ApplicationPolicy {
     this.collaborator = collaborator;
   }
 
+
+
   _isOwner() {
     return this.record && (this.record.userId == this.user.id);
   }

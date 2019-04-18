@@ -8,7 +8,7 @@ module.exports = {
   index(req, res, next){
     wikiQueries.getAllWikis((err, wikis) => {
       if (err) {
-        res.redirect(500, "static/index");
+        res.redirect(500, "/");
       } else {
         res.render("wiki/index", {wikis});
       }
@@ -52,24 +52,28 @@ module.exports = {
     wikiQueries.getWiki(req.params.id, (err, result) => {
       var wiki = result["wiki"];
 
+      var userId;
+      req.user ? userId = req.user.id : userId = null
+
       if(err || wiki == null){
         res.redirect(404, "/");
       } else {
-        let collaborator = Collaborator.findOne({
-          where: {
-            userId: req.user.id,
-            wikiId: wiki.id
-          }
-        })
-        const authorized = new Authorizer(req.user, collaborator, wiki).show();
-
-        if(authorized) {
-          wiki.body = markdown.toHTML(wiki.body);
-          res.render("wiki/show", {...result});
-        } else {
-          req.flash("notice", "You are not authorized to do that.");
-          res.redirect("/wiki");
-        }
+          Collaborator.findOne({
+            where: {
+              userId: userId,
+              wikiId: req.params.id
+            }
+          })
+          .then((collaborator) => {
+            const authorized = new Authorizer(req.user, wiki, collaborator).show();
+            if(authorized) {
+              wiki.body = markdown.toHTML(wiki.body);
+              res.render("wiki/show", {...result});
+            } else {
+              req.flash("notice", "You are not authorized to do that.");
+              res.redirect("/wiki");
+            }
+          })
       }
     })
   },
@@ -98,16 +102,17 @@ module.exports = {
             wikiId: wiki.id
           }
         })
+        .then((collaborator) => {
+          const authorized = new Authorizer(req.user, wiki, collaborator).edit();
 
-        const authorized = new Authorizer(req.user, collaborator, wiki).edit();
-
-        if(authorized) {
-          markdownBody = markdown.toHTML(wiki.body);
-          res.render("wiki/edit", {wiki, markdownBody, collaborators});
-        } else {
-          req.flash("notice", "You are not authorized to do that.");
-          res.redirect(`/wiki/${req.params.id}`);
-        }
+          if(authorized) {
+            markdownBody = markdown.toHTML(wiki.body);
+            res.render("wiki/edit", {wiki, markdownBody, collaborators});
+          } else {
+            req.flash("notice", "You are not authorized to do that.");
+            res.redirect(`/wiki/${req.params.id}`);
+          }
+        })
       }
     });
   },

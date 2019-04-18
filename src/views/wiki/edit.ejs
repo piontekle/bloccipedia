@@ -37,7 +37,7 @@
                   <small class="text-muted" id="bodyHelp">must be at least 10 characters long</small>
                 </div>
               </div>
-              <% if (wiki.private && currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id == wiki.userId))) { %>
+              <% if (wiki.private && currentUser && (currentUser.isAdmin() || (currentUser.isPremium() && currentUser.id == wiki.userId) || wiki.isCollaboratorOn(currentUser.id))) { %>
 
                   <div class="row">
                     <label for="switch-2" class="mdl-switch mdl-js-switch mdl-js-ripple-effect">
