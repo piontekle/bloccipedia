@@ -65,7 +65,7 @@ Deployed through [Heroku](www.heroku.com):
 [PostgreSQL](https://www.postgresql.org/) - The relational database used
 
 # Versioning
-I use GitHub for versioning. For the versions available, see the tags on this repository.
+I use GitHub for versioning.
 
 # Author
 Lauren Piontek
