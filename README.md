@@ -9,7 +9,7 @@ Before you get started you'll need the following installed:
 - NodeJS
 - npm
 
-**Installing Node:***
+**Installing Node:**
 If you have `homebrew` installed, in your console: 
 
 `brew install node`
